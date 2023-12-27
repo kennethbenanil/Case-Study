@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Azure Blob Storage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Upload and Manage Files</h1>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="file" name="file" accept=".txt, .pdf, .docx" required>
+                    <label class="custom-file-label" for="file">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <h2>Uploaded Files</h2>
+        <div class="row">
+            {% for blob in blobs %}
+                <div class="col-md-3 mb-4">
+                    <img src="{{ url_for('download', filename=blob.name) }}" alt="Image" class="img-fluid">
+                    <div class="mt-2">
+                        <a href="{{ url_for('download', filename=blob.name) }}" download>{{ blob.name }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
